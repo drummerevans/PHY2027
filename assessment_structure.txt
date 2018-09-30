@@ -1,0 +1,16 @@
+/* 
+*Assessment 1 for the PHY2027 module
+*Date...
+*/
+
+/*
+*Program description
+*/
+
+int main() {
+    Program structure with comments included.
+}
+
+
+Files submitted must be ".c" files onto ELE.
+Due on Monday evenings 1st one due T1:W4. Project due on Friday evening T1:W12.
