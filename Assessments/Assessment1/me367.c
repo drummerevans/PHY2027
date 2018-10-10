@@ -4,7 +4,7 @@ Date...
 */
 
 /*
-This program computes the maximum vertical height and horizontal range.
+This program computes the maximum vertical height and horizontal range of a projectile.
 For a given velocity and launching angle entered by the user.
 */
 
@@ -15,42 +15,52 @@ For a given velocity and launching angle entered by the user.
 
 
 int main() {
+    const int NEGATIVE_VELOCITY = -1, NEGATIVE_ANGLE = -1, SPEED_OF_LIGHT_ERROR = 1; // declaring and intializing error message constants
     const float GRAVITY = 9.81, PI = M_PI; // declaring and initializing the constants required for the calculations
-    float vel, angle, rad_angle, distance, height;
+    float vel = -1, angle = -1, rad_angle, distance, height, testVel = -1;
 
-    printf("Enter a valid velocity: ");
+    printf("\nPlease enter a valid velocity: ");
     scanf("%f", &vel);
 
     if(vel < 0) {
-        printf("\t!!!Invalid velocity entered!!!\n");
-        return 1;
+        printf("\n\t!!!Invalid velocity entered!!!\n");
+        printf("\tNEGATIVE VELOCITY ERROR\n");
+        return NEGATIVE_VELOCITY;
+    }
+    else if(vel > 3e8) {
+        printf("\n\t!!!Invalid velocity entered!!!\n");
+        printf("\tSPEED OF LIGHT ERROR\n");
+        return SPEED_OF_LIGHT_ERROR; 
     }
     else {
-        printf("The velocity you entered was: %f\n", vel);
+        printf("\n\tThe velocity you entered was: %g\n", vel);
     }
 
-    printf("\nNow, in degrees, enter an angle between 0 and 180: ");
+    printf("\nNow, in degrees, please enter an angle between 0 and 180: ");
     scanf("%f", &angle);
 
     if(angle < 0 || angle > 180) {
-        printf("\t!!!Invalid angle entered!!!\n");
-        return 1;
+        printf("\n\t!!!Invalid angle entered!!!\n");
+        printf("\tNEGATIVE ANGLE ERROR\n");
+        return NEGATIVE_ANGLE;
     }
     else {
-        printf("The angle you entered was: %f\n", angle);
+        printf("\n\tThe angle you entered was: %f\n", angle);
         
-        rad_angle = (PI / 180) * angle; // converting the angle into radians
-        printf("The angle in radians is now: %f\n", rad_angle);
-        printf("The angle you entered was: %f\n", angle);
+        rad_angle = (PI / 180) * angle; // converting the angle into radians and intializing the 'rad_angle' variable as the result
+        printf("\n\tThe angle in radians is now: %f\n", rad_angle);
+        printf("\n\tThe angle you entered was: %f\n", angle);
     }
 
-    distance = (pow(vel, 2) * sin(2 * rad_angle)) / GRAVITY;
-    height = pow(vel, 2) * pow(sin(rad_angle), 2) / (2 * GRAVITY);
+    distance = pow(vel, 2) * sin(2 * rad_angle) / GRAVITY; // equation giving the horizontal distance
+    height = pow(vel, 2) * pow(sin(rad_angle), 2) / (2 * GRAVITY); // equation giving the maimum vertical height
 
-    // float power = pow(10, 2); // pow() returns the first argument raised to the power of the second
-    // printf("10 ^ 2 = %.0f\n", power);
+    distance = abs(distance); // to shield against printing -0.00 as distance
 
-    printf("The value of pi is: %f\n", PI);
+    printf("\n\tThe horizontal distance the projectile covered: %.2f\n", distance);
+    printf("\tThe maximum vertical height the projectile reached was: %.2f\n", height);
+    printf("\tAll evaluated to two decimal places.");
+
 
     return 0;
 
