@@ -16,7 +16,8 @@ For a given velocity and launching angle entered by the user.
 
 int main() {
     const int NEGATIVE_VELOCITY = -1, NEGATIVE_ANGLE = -1, SPEED_OF_LIGHT_ERROR = 1; // declaring and intializing error message constants
-    const float GRAVITY = 9.81, PI = M_PI; // declaring and initializing the constants required for the calculations
+    const float GRAVITY = 9.81; // declaring and initializing the acceleration due to gravity constant required for the calculations
+    
     float vel = -1, angle = -1, rad_angle, distance, height, testVel = -1;
 
     printf("\nPlease enter a valid velocity: ");
@@ -37,92 +38,80 @@ int main() {
     }
 
     printf("\nNow, in degrees, please enter an angle between 0 and 180: ");
-    scanf("%f", &angle);
+    scanf("%f", &angle); 
 
-    if(angle < 0 || angle > 180) {
+    if(angle < 0 || angle > 180.0) {
         printf("\n\t!!!Invalid angle entered!!!\n");
         printf("\tNEGATIVE ANGLE ERROR\n");
         return NEGATIVE_ANGLE;
     }
     else {
         printf("\n\tThe angle you entered was: %f\n", angle);
-        
-        rad_angle = (PI / 180) * angle; // converting the angle into radians and intializing the 'rad_angle' variable as the result
-        printf("\n\tThe angle in radians is now: %f\n", rad_angle);
-        printf("\n\tThe angle you entered was: %f\n", angle);
+        rad_angle = (M_PI / 180.0) * angle; // converting the angle into radians and intializing the 'rad_angle' variable as the result
     }
 
-    distance = pow(vel, 2) * sin(2 * rad_angle) / GRAVITY; // equation giving the horizontal distance
-    height = pow(vel, 2) * pow(sin(rad_angle), 2) / (2 * GRAVITY); // equation giving the maimum vertical height
+    distance = pow(vel, 2) * sin(2.0 * rad_angle) / GRAVITY; // equation giving the horizontal distance
+    height = pow(vel, 2) * pow(sin(rad_angle), 2) / (2.0 * GRAVITY); // equation giving the maimum vertical height
 
-    distance = abs(distance); // to shield against printing -0.00 as distance
+    distance = fabs(distance); // to shield against printing -0.00 as distance
 
     printf("\n\tThe horizontal distance the projectile covered: %.2f\n", distance);
     printf("\tThe maximum vertical height the projectile reached was: %.2f\n", height);
     printf("\tAll evaluated to two decimal places.");
 
-
     return 0;
-
-    // print out terminal test values and results here!!!
 }
 
-// float veclocity() {
-//     float vel1;
-//     int option;
+// A print out of the results for any valid velcoity and a launching angle of 0
 
-//     printf("Enter a valid velocity: ");
-//     scanf("%f", &vel1);
-//     printf("The velocity you entered was: %f\n", vel1);
+// Please enter a valid velocity: 5
 
-//     if(vel1 < 0) {
-//         printf("Invalid velocity entered!!!\n");
-//         printf("\n\tWould you like to try again?");
-//         printf("\n\tOption 1: Enter 1 to try again.");
-//         printf("\n\tOption 2: Enter 2 to end the program.\n");
-//         scanf("%d", &option);
+//         The velocity you entered was: 5
 
-//         switch(option) {
-//             case 1: 
-//                 veclocity();
-//                 break;
-//             case 2:
-//                 return 1;
-//                 break;
-//             default: 
-//                 printf("Program terminated.\n"); return 1;
-//                 break; 
-//         }
-//     }
-//     else {
-//         printf("The velocity entered was: %f", vel1);
-//     }
-//     return vel1;
-// }
+// Now, in degrees, please enter an angle between 0 and 180: 0
 
-// float angle() {
-//     float deg_angle, rad_angle;
+//         The angle you entered was: 0.000000
 
-//     printf("\nNow, in degrees, enter an angle between 0 and 180: ");
-//     scanf("%f", &deg_angle);
+//         The horizontal distance the projectile covered: 0.00
+//         The maximum vertical height the projectile reached was: 0.00
+//         All evaluated to two decimal places.Matthews-MacBook-Pro:Assessment1 matthewevans$
 
-//     if(deg_angle < 0 || deg_angle > 180) {
-//         printf("\nInvalid angle entered!\n");
-//         printf("Please enter another angle between 0 and 180: ");
-//         scanf("%f", &deg_angle);
-//         angle(); // calling the function recursively in order to enter a valid angle
-//     }
-//     // else if(!isdigit(deg_angle)) {
-//     //     printf("\nInvalid angle entered!\n");
-//     //     return -1;
-//     // }
-//     else {
-//         printf("The angle you entered was: %f\n", deg_angle);
-        
-//         rad_angle = (PI / 180) * deg_angle; // converting the angle into radians
-//         printf("The angle in radians is now: %f\n", rad_angle);
-//         printf("The angle you entered was: %f\n", deg_angle);
-//     }
-    
-//     return rad_angle;
-// }
+
+
+// A print out of the results for any valid velcoity and a launching angle of 90
+
+// Please enter a valid velocity: 60
+
+//         The velocity you entered was: 60
+
+// Now, in degrees, please enter an angle between 0 and 180: 90
+
+//         The angle you entered was: 90.000000
+
+//         The horizontal distance the projectile covered: 0.00
+//         The maximum vertical height the projectile reached was: 183.49
+//         All evaluated to two decimal places.Matthews-MacBook-Pro:Assessment1 matthewevans$
+
+
+// A print out of the results for any valid velcoity and a launching angle of 45
+
+// Please enter a valid velocity: 60
+
+//         The velocity you entered was: 60
+
+// Now, in degrees, please enter an angle between 0 and 180: 45
+
+//         The angle you entered was: 45.000000
+
+//         The horizontal distance the projectile covered: 366.97
+//         The maximum vertical height the projectile reached was: 91.74
+//         All evaluated to two decimal places.Matthews-MacBook-Pro:Assessment1 matthewevans$
+
+
+// A print out of the results for a negative velocity and a any valid launching angle
+
+// Please enter a valid velocity: -50
+
+//         !!!Invalid velocity entered!!!
+//         NEGATIVE VELOCITY ERROR
+// Matthews-MacBook-Pro:Assessment1 matthewevans$
