@@ -18,18 +18,18 @@ int main() {
     const int NEGATIVE_VELOCITY = -1, NEGATIVE_ANGLE = -1, SPEED_OF_LIGHT_ERROR = 1; // declaring and intializing error message constants
     const float GRAVITY = 9.81; // declaring and initializing the acceleration due to gravity constant required for the calculations
     
-    float vel = -1, angle = -1, rad_angle, distance, height, testVel = -1;
+    float vel = -1, angle = -1, rad_angle, distance, height;
 
     printf("\nPlease enter a valid velocity: ");
     scanf("%f", &vel);
 
     if(vel < 0) {
-        printf("\n\t!!!Invalid velocity entered!!!\n");
+        printf("\n\t!!!Invalid velocity entered!!!\n"); 
         printf("\tNEGATIVE VELOCITY ERROR\n");
         return NEGATIVE_VELOCITY;
     }
     else if(vel > 3e8) {
-        printf("\n\t!!!Invalid velocity entered!!!\n");
+        printf("\n\t!!!Invalid velocity entered!!!\n"); 
         printf("\tSPEED OF LIGHT ERROR\n");
         return SPEED_OF_LIGHT_ERROR; 
     }
