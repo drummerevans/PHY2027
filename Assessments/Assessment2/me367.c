@@ -15,6 +15,7 @@ The user makes a choice as to how many number in the series to add.
 void create_array(int decision, int array[NMAX]);
 int add_function(int amount, int array[NMAX]);
 
+
 int main() {
     int option, nsum;
     int inums[NMAX] = {0};
@@ -22,7 +23,6 @@ int main() {
     printf("\n\tWhat would you like to do?\n");
     printf("\n\t1. Find the series of odd integer numbers");
     printf("\n\t2. Find the series of even integer numbers\n");
-    // printf("\n\t3. Nothing!\n");
 
     printf("\nPlease enter your option: ");
     scanf("%d", &option);
@@ -37,11 +37,20 @@ int main() {
         printf("\nPlease enter a valid option: ");
         scanf("%d", &option);
     }
-    
+
     create_array(option, inums);
 
-    printf("\nNow, how many numbers from the series would you like to add? ");
+    printf("\nNow, how many numbers from the series would you like to add?");
+    printf("\nEnter a number from 1 to 100: ");
     scanf("%d", &nsum);
+
+    while(nsum > 100 || nsum < 0) {
+        printf("\n\t!!!Invalid entry!!!. Please try again.\n");
+
+        printf("\nNow, how many numbers from the series would you like to add? ");
+        printf("\nEnter a number from 1 to 100: ");
+        scanf("%d", &nsum);
+    }
 
     printf("\nThe total sum of your series is: %d\n", add_function(nsum, inums));
         
@@ -49,7 +58,6 @@ int main() {
 }
 
 /*
-The create_array function will create an array  of even or odd numbers.
 If an invalid entry was entered the program will be stopped.
 */
 
@@ -83,24 +91,8 @@ int add_function(int amount, int array[NMAX]) {
     return sum;
 }
 
-// A print out of the results for a selection of incorrect inputs
 
-// When a negative number is entered: 
-
-//         What would you like to do?
-
-//         1. Find the series of odd integer numbers
-//         2. Find the series of even integer numbers
-
-// Please enter your option: -4
-
-//         !!!Invalid entry!!!. Please try again.
-
-//         What would you like to do?
-
-//         1. Find the series of odd integer numbers
-//         2. Find the series of even integer numbers
-
+// A print out of the results for a selection of incorrect inputs for the first while loop
 
 // When a number other than 1 or 2 is entered:
 
@@ -119,6 +111,67 @@ int add_function(int amount, int array[NMAX]) {
 //         2. Find the series of even integer numbers
 
 
+// When a negative number is entered: 
+
+//         What would you like to do?
+
+//         1. Find the series of odd integer numbers
+//         2. Find the series of even integer numbers
+
+// Please enter your option: -4
+
+//         !!!Invalid entry!!!. Please try again.
+
+//         What would you like to do?
+
+//         1. Find the series of odd integer numbers
+//         2. Find the series of even integer numbers
+
+
+
+
+
+// A print out of the results for a selection of incorrect inputs for the second while loop
+
+// When a number greater than 100 is entered:
+
+//         What would you like to do?
+
+//         1. Find the series of odd integer numbers
+//         2. Find the series of even integer numbers
+
+// Please enter your option: 1
+// You chose to sum a series of odd numbers
+
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100: 104
+
+//         !!!Invalid entry!!!. Please try again.
+
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100:
+
+// When a number less than 0 is entered:
+
+//         What would you like to do?
+
+//         1. Find the series of odd integer numbers
+//         2. Find the series of even integer numbers
+
+// Please enter your option: 2
+// You chose to sum a series of even numbers
+
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100: -9
+
+//         !!!Invalid entry!!!. Please try again.
+
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100:
+
+
+
+
 
 // Performing the sum of the first 10 odd integer numbers
 
@@ -130,7 +183,8 @@ int add_function(int amount, int array[NMAX]) {
 // Please enter your option: 1
 // You chose to sum a series of odd numbers
 
-// Now, how many numbers from the series would you like to add? 10
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100: 10
 
 // The total sum of your series is: 100
 
@@ -146,6 +200,7 @@ int add_function(int amount, int array[NMAX]) {
 // Please enter your option: 2
 // You chose to sum a series of even numbers
 
-// Now, how many numbers from the series would you like to add? 10
+// Now, how many numbers from the series would you like to add?
+// Enter a number from 1 to 100: 10
 
 // The total sum of your series is: 110
