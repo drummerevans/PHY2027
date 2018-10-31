@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <math.h>
 
 #define NMAX 100
 #define NUMBERS 4
 
 float average(float narray[NMAX]);
-void std_dev(float a, float b, float c, float d, float result1);
+float std_dev(float narray[NMAX], float mean_val);
 
 
 int main() {
@@ -25,7 +26,7 @@ int main() {
     This is question 2
     */
 
-    float mean;
+    float mean, deviation;
     float narray[NUMBERS];
 
     printf("Please input four numbers you would like to take the average of and press enter after each entry: \n");
@@ -33,6 +34,8 @@ int main() {
     mean = average(narray);
     printf("The average of the four numbers is: %f\n", mean);
 
+    deviation = std_dev(narray, mean);
+    printf("The standard deviation of the four numbers is: %f\n", deviation);
     return 0;
 }
 
@@ -51,9 +54,17 @@ float average(float narray[NUMBERS]) {
     return result;
 }
 
-// void std_dev(float a, float b, float c, float d, float result1) {
-//     for(int i = 0; i < 4; i++) {
+float std_dev(float narray[NUMBERS], float mean_val) {
+    float ndiff[NUMBERS];
+    float pre_result = 0, result;
+    for(int i = 0; i < NUMBERS; i++) {
+        ndiff[i] = pow((narray[i] - mean_val), 2);
+    }
+    for(int i = 0; i < NUMBERS; i++) {
+        pre_result += ndiff[i];
+    }
 
-//     }
-
-// }
+    result = pre_result / (NUMBERS - 1);
+    
+    return result;
+}
