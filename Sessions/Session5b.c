@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct animal {
+typedef struct dog {
     char name[30];
     int age;
     char bark[30];
@@ -12,7 +12,7 @@ typedef struct animal {
 void barks(Dog *ptr);
 
 int main() {
-    Dog *pdog = NULL; 
+    Dog *pdog = NULL; // declaring and initializing the structure pointer to NULL
     pdog = (Dog *)malloc(3 * sizeof(Dog)); // allocated space for our structure 
 
     for(int i = 0; i < 3; i++) {
