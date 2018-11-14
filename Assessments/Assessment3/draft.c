@@ -56,11 +56,11 @@ int indata() {
         for(int i = 0; !feof(fptr); i++) {
             fscanf(fptr, "%s %s %d", sptr[i].name, sptr[i].surname, &sptr[i].age);
             fscanf(fptr, "%f %f %f %f %f", &sptr[i].mark[0], &sptr[i].mark[1], &sptr[i].mark[2], &sptr[i].mark[3], &sptr[i].mark[4]);
-            fscanf(fptr, "%s", sptr[i].date);
+            // fscanf(fptr, "%s", sptr[i].date);
 
             fprintf(stdout, "%s %s %d\n", sptr[i].name, sptr[i].surname, sptr[i].age);
             fprintf(stdout, "%f %f %f %f %f\n", sptr[i].mark[0], sptr[i].mark[1], sptr[i].mark[2], sptr[i].mark[3], sptr[i].mark[4]);
-            fprintf(stdout, "%s\n", sptr[i].date);
+            // fprintf(stdout, "%s\n", sptr[i].date);
         }
         
         // printf("Values stored in \'names\' array are: \n");
