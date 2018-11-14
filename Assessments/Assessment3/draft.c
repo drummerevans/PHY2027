@@ -12,16 +12,19 @@ The user input the name of the student to obtain the mark and grade for that par
 #include <string.h>
 #include <stdlib.h>
 
-// typedef struct student {
-//     char name[100];
-//     int age;
-//     float mark[5]; // an array containing marks of five different assignments
-//     char date[20];
-// } Student;
+typedef struct student {
+    char name[50];
+    char surname[50];
+    int age;
+    float mark[5]; // an array containing marks of five different assignments
+    char date[20];
+} Student;
 
 int indata();
 
 int main() {
+    
+
     char identity[20] = "Trundles";
     char again[20];
 
@@ -42,47 +45,28 @@ int main() {
 }
 
 int indata() {
+    Student *sptr = NULL;
     FILE *fptr;
-    char text[25];
-    int age[25] = {0};
-    float marks[25] = {0};
-    char date[25];
+    sptr = (Student *)malloc(8 * sizeof(Student)); // allocated space for our structure array
 
-    char *names[3];
-
-    int arr_size = sizeof(age) / sizeof(int);
-    printf("Array size: %d\n", arr_size);
-
-    fptr = fopen("pupilmarkdata.txt", "r");
+    fptr = fopen("scores.txt", "r");
 
     if(fptr != NULL) {
         // the while loop reads one line at a time from the text file "student_info.txt"
         for(int i = 0; !feof(fptr); i++) {
-            fscanf(fptr, "%s %d %f %s", text, &age[i], &marks[i], date);
-            if(i == 0) {
-                printf("what is it %s?\n", text);
-                names[0] = text;
-                printf("%s\n", names[0]);
-            }
-            if(i == 5) {
-                printf("what is it %s?\n", text);
-                printf("%s\n", names[0]);
-                names[1] = text;
-                printf("%s\n", names[0]);
-            }
-            // if(i == 10) {
-            //     names[2] = text;
-            // }
-            fprintf(stdout, "%s %d %f %s\n", text, age[i], marks[i], date);
+            fscanf(fptr, "%s %s %d", sptr[i].name, sptr[i].surname, &sptr[i].age);
+            fscanf(fptr, "%f %f %f %f %f", &sptr[i].mark[0], &sptr[i].mark[1], &sptr[i].mark[2], &sptr[i].mark[3], &sptr[i].mark[4]);
+            fscanf(fptr, "%s", sptr[i].date);
+
+            fprintf(stdout, "%s %s %d\n", sptr[i].name, sptr[i].surname, sptr[i].age);
+            fprintf(stdout, "%f %f %f %f %f\n", sptr[i].mark[0], sptr[i].mark[1], sptr[i].mark[2], sptr[i].mark[3], sptr[i].mark[4]);
+            fprintf(stdout, "%s\n", sptr[i].date);
         }
         
         // printf("Values stored in \'names\' array are: \n");
         // for(int i = 0; i < 3; i++) {
         //     printf("Name %d is %s\n", i, names[i]);
         // }
-
-        printf("The age and the marks are as follows: \n");
-        printf("%s\n", names[0]);
 
         float sum[20];
 
@@ -102,9 +86,9 @@ int indata() {
         // for(int i = 0; i < 5; i++) {
         //     printf("Marks: %f\n", marks[i]);
         // }
-
-        // fclose(fptr);
-        // return 0;
+        free(sptr);
+        fclose(fptr);
+        return 0;
         }
 
         else {
