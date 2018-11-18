@@ -3,6 +3,10 @@
 
 int main() {
     char *names[3] = {0};
+    char identity[] = "Hello";
+    char option;
+
+    printf("The string contains: %s\n", identity);
 
     // for(int i = 0; i < 3; i++) {
     //     printf("Element[%d] contains %s\n", i, names[i]);
