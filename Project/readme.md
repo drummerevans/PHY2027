@@ -5,3 +5,8 @@ It contains the name, mass(10e24kg), distance from Sun(10e6km) and orbital speed
 
 The data was aquired from: 
 https://nssdc.gsfc.nasa.gov/planetary/factsheet/ (accessed 27th November 2018).
+
+## project.c
+
+The Sun's mass was auired from:
+https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html 
