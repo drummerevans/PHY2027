@@ -32,13 +32,26 @@ int main() {;
     FILE *result_ptr = NULL;
     result_ptr = fopen("results.txt", "w");
 
-    double time_step = 1e7;
+    double time_step = 1e3;
 
     read(struc_ptr);
     
-    double dist = distance(struc_ptr);
-    predict(struc_ptr, time_step, dist);
-    correct(struc_ptr, time_step);
+    for(int i = 0; i < 365; i ++){
+        double dist = distance(struc_ptr);
+        predict(struc_ptr, time_step, dist);
+        correct(struc_ptr, time_step);
+
+        if(result_ptr != NULL) {
+            printf("Results file opened.\n");
+            fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+        }
+        else {
+            printf("Unable to open results file.\n");
+            return 1;
+        }
+    }
+
+    
 
     fclose(result_ptr);
     free(struc_ptr);
@@ -117,6 +130,7 @@ void correct(Planet *sptr, double dt) {
     printf("Initial vx velocity is: %le\n", sptr[2].vel[0]);
     printf("Estimated vx veolcity is: %le\n", sptr[2].est_vel[0]);
     sptr[2].pos[0] += (sptr[2].vel[0] + sptr[2].est_vel[0]) * (dt / 2);
+    
     printf("Initial y position is: %le\n", sptr[2].pos[1]);
     printf("Initial vy velocity is: %le\n", sptr[2].vel[1]);
     printf("Estimated vy veolcity is: %le\n", sptr[2].est_vel[1]);
@@ -131,5 +145,5 @@ void correct(Planet *sptr, double dt) {
     sptr[2].vel[0] += (sptr[2].accel[0] + sptr[2].est_accel[0]) * (dt / 2);
     sptr[2].vel[1] += (sptr[2].accel[1] + sptr[2].est_accel[1]) * (dt / 2);
 
-     printf("The new planetary velocities are vx = %le and vy = %le\n", sptr[2].vel[0], sptr[2].vel[1]);
+    printf("The new planetary velocities are vx = %le and vy = %le\n", sptr[2].vel[0], sptr[2].vel[1]);
 }
