@@ -10,7 +10,6 @@
 typedef struct planet{
     char name[20];
     double mass;
-    int period;
     double pos[2];
     double vel[2];
     double accel[2];
@@ -33,30 +32,37 @@ int main() {
     result_ptr = fopen("results.txt", "w");
 
     double dt = 86400.0;
-    double T = 3e9;
+    double T = 4e7;
     double dump_time = 7 * dt;
     double time_until_dump = dump_time;
 
     read(struc_ptr);
     
+    // the for loop starts at time 0 and iterates until a given period
+    // the time step is then increased by an amount dt and and dumps the values for the positions every 7 days
     for(double t = 0.0; t < T; t += dt, time_until_dump -= dt){
-        // printf("The current time is: %lg    time unti dump: %lg\n", t, time_until_dump);
-        if(time_until_dump <= 0.0) {
-            time_until_dump = dump_time; // outputting result every 7 days
-            // printf("Dumping\n");
-        }
-        double dist = distance(struc_ptr);
-        predict(struc_ptr, dt, dist);
-        correct(struc_ptr, dt);
-
-        // if(result_ptr != NULL) {
-        //     printf("Results file opened.\n");
+        printf("The current time is: %lg    time unti dump: %lg\n", t, time_until_dump);
+        // if(time_until_dump <= 0.0) {
+        //     time_until_dump = dump_time; // outputting result every 7 days
         //     fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+        //     printf("Dumping\n");
         // }
         // else {
         //     printf("Unable to open results file.\n");
         //     return 1;
         // }
+        double dist = distance(struc_ptr);
+        predict(struc_ptr, dt, dist);
+        correct(struc_ptr, dt);
+
+        if(result_ptr != NULL) {
+            printf("Results file opened.\n");
+            fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+        }
+        else {
+            printf("Unable to open results file.\n");
+            return 1;
+        }
     }
 
     
@@ -101,6 +107,10 @@ double distance(Planet *sptr) {
     double r = sqrt(r2); // distance between the Sun and a planet
 
     return r;
+}
+
+void accelerate(Planet *sptr) {
+    sptr[2].accel[0] = -(G * M * )
 }
 
 // this predicts the planet's new position and velocity, for both x and y components

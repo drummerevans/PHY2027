@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 x_vals = []
 y_vals = []
 
-fptr = open("orbits.txt", "r", newline=None)
+fptr = open("results.txt", "r", newline=None)
 
 list_of_results = fptr.readlines()
 
