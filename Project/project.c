@@ -25,30 +25,38 @@ void predict(Planet *sptr, double dt, double r);
 void correct(Planet *sptr, double dt);
 
 
-int main() {;
+int main() {
     Planet *struc_ptr = NULL; // declaring and initializing a structure pointer
     struc_ptr = (Planet *)malloc(8 * sizeof(Planet)); // allocating 8 spaces for our structure array of planets
 
     FILE *result_ptr = NULL;
     result_ptr = fopen("results.txt", "w");
 
-    double time_step = 1e3;
+    double dt = 86400.0;
+    double T = 3e9;
+    double dump_time = 7 * dt;
+    double time_until_dump = dump_time;
 
     read(struc_ptr);
     
-    for(int i = 0; i < 365; i ++){
+    for(double t = 0.0; t < T; t += dt, time_until_dump -= dt){
+        // printf("The current time is: %lg    time unti dump: %lg\n", t, time_until_dump);
+        if(time_until_dump <= 0.0) {
+            time_until_dump = dump_time; // outputting result every 7 days
+            // printf("Dumping\n");
+        }
         double dist = distance(struc_ptr);
-        predict(struc_ptr, time_step, dist);
-        correct(struc_ptr, time_step);
+        predict(struc_ptr, dt, dist);
+        correct(struc_ptr, dt);
 
-        if(result_ptr != NULL) {
-            printf("Results file opened.\n");
-            fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
-        }
-        else {
-            printf("Unable to open results file.\n");
-            return 1;
-        }
+        // if(result_ptr != NULL) {
+        //     printf("Results file opened.\n");
+        //     fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+        // }
+        // else {
+        //     printf("Unable to open results file.\n");
+        //     return 1;
+        // }
     }
 
     
@@ -73,9 +81,9 @@ void read(Planet *sptr) {
             for(int j = 0; j < 2; j++) {
                 fscanf(fptr, "%le %le", &sptr[i].pos[j], &sptr[i].vel[j]);
             }
-            fprintf(stdout, "Name: %s, Mass: %lekg, Period: %d days\n", sptr[i].name, sptr[i].mass, sptr[i].period);
-            fprintf(stdout, "The planet position is, x = %lem y = %lem\n", sptr[i].pos[0], sptr[i].pos[1]);
-            fprintf(stdout, "The planet velocity is, vx = %lem/s vy = %lem/s\n", sptr[i].vel[0], sptr[i].vel[1]);
+            // fprintf(stdout, "Name: %s, Mass: %lekg, Period: %d days\n", sptr[i].name, sptr[i].mass, sptr[i].period);
+            // fprintf(stdout, "The planet position is, x = %lem y = %lem\n", sptr[i].pos[0], sptr[i].pos[1]);
+            // fprintf(stdout, "The planet velocity is, vx = %lem/s vy = %lem/s\n", sptr[i].vel[0], sptr[i].vel[1]);
         }
         // closing the text file after the data has been scanned into the relevant structures
         fclose(fptr); 
@@ -101,24 +109,24 @@ void predict(Planet *sptr, double dt, double r) {
     sptr[2].accel[0] = -(G * M * sptr[2].pos[0]) / (pow(r, 2) * r);
     sptr[2].accel[1] = -(G * M * sptr[2].pos[1]) / (pow(r, 2) * r);
 
-    printf("\nThe initial ax = %le and initial ay = %le\n", sptr[2].accel[0], sptr[2].accel[1]);
+    // printf("\nThe initial ax = %le and initial ay = %le\n", sptr[2].accel[0], sptr[2].accel[1]);
 
     // estimating the x and y positions for the planet
     sptr[2].est_pos[0] = sptr[2].pos[0] + (sptr[2].vel[0] * (dt / 2));
     sptr[2].est_pos[1] = sptr[2].pos[1] + (sptr[2].vel[1] * (dt / 2));
 
-    printf("The estimated x and y positions are: %le and %le\n", sptr[2].est_pos[0], sptr[2].est_pos[1]);
+    // printf("The estimated x and y positions are: %le and %le\n", sptr[2].est_pos[0], sptr[2].est_pos[1]);
 
     // now estimating the x and y components for the velocity of the planet
     sptr[2].est_vel[0] = sptr[2].vel[0] + (sptr[2].accel[0] * (dt / 2));
     sptr[2].est_vel[1] = sptr[2].vel[1] + (sptr[2].accel[1] * (dt / 2));
 
-    printf("The estimated x and y velocities are: %le and %le\n", sptr[2].est_vel[0], sptr[2].est_vel[1]);
+    // printf("The estimated x and y velocities are: %le and %le\n", sptr[2].est_vel[0], sptr[2].est_vel[1]);
 
     sptr[2].est_accel[0] = -(G * M * sptr[2].est_pos[0]) / (pow(r, 2) * r);
     sptr[2].est_accel[1] = -(G * M * sptr[2].est_pos[1]) / (pow(r, 2) * r);
 
-    printf("\nThe esitmated ax = %le and estimated ay = %le\n", sptr[2].est_accel[0], sptr[2].est_accel[1]);
+    // printf("\nThe esitmated ax = %le and estimated ay = %le\n", sptr[2].est_accel[0], sptr[2].est_accel[1]);
 }
 
 // the correct function updates the component positions and velocities
@@ -126,24 +134,24 @@ void correct(Planet *sptr, double dt) {
 
     // evaluating the new updated x and y positions for the planet and storing them in the structure ready for the next iteration
 
-    printf("Initial x position is: %le\n", sptr[2].pos[0]);
-    printf("Initial vx velocity is: %le\n", sptr[2].vel[0]);
-    printf("Estimated vx veolcity is: %le\n", sptr[2].est_vel[0]);
+    // printf("Initial x position is: %le\n", sptr[2].pos[0]);
+    // printf("Initial vx velocity is: %le\n", sptr[2].vel[0]);
+    // printf("Estimated vx veolcity is: %le\n", sptr[2].est_vel[0]);
     sptr[2].pos[0] += (sptr[2].vel[0] + sptr[2].est_vel[0]) * (dt / 2);
     
-    printf("Initial y position is: %le\n", sptr[2].pos[1]);
-    printf("Initial vy velocity is: %le\n", sptr[2].vel[1]);
-    printf("Estimated vy veolcity is: %le\n", sptr[2].est_vel[1]);
+    // printf("Initial y position is: %le\n", sptr[2].pos[1]);
+    // printf("Initial vy velocity is: %le\n", sptr[2].vel[1]);
+    // printf("Estimated vy veolcity is: %le\n", sptr[2].est_vel[1]);
     sptr[2].pos[1] += (sptr[2].vel[1] + sptr[2].est_vel[1]) * (dt / 2);
     
-    printf("The new planetary positions are x = %le and y = %le\n", sptr[2].pos[0], sptr[2].pos[1]);
+    printf("%le %le\n", sptr[2].pos[0], sptr[2].pos[1]);
 
 
-    printf("Initial vx velocity is: %le\n", sptr[2].vel[0]);
-    printf("Initial ax accleration is: %le\n", sptr[2].accel[0]);
-    printf("Estimated ax acceleration is: %le\n", sptr[2].est_accel[0]);
+    // printf("Initial vx velocity is: %le\n", sptr[2].vel[0]);
+    // printf("Initial ax accleration is: %le\n", sptr[2].accel[0]);
+    // printf("Estimated ax acceleration is: %le\n", sptr[2].est_accel[0]);
     sptr[2].vel[0] += (sptr[2].accel[0] + sptr[2].est_accel[0]) * (dt / 2);
     sptr[2].vel[1] += (sptr[2].accel[1] + sptr[2].est_accel[1]) * (dt / 2);
 
-    printf("The new planetary velocities are vx = %le and vy = %le\n", sptr[2].vel[0], sptr[2].vel[1]);
+    // printf("The new planetary velocities are vx = %le and vy = %le\n", sptr[2].vel[0], sptr[2].vel[1]);
 }
