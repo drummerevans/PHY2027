@@ -6,6 +6,7 @@ The planetary orbits had to be rounded to the nearest day in order to loop aroun
 
 ## project.c
 
+This program maps the planetary motion of planets in the solar system around the Sun.
 The Sun's mass was auired from: https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html (accessed 30th November 2018).
 To run use:
 ```

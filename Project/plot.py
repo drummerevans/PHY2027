@@ -22,5 +22,12 @@ while row: # while there is a line in the text file, perform the following...
             y_coords.append(float(data[col]))
     row = fptr.readline() # when fptr.readline() is called, we move onto the next line/row
 
-plt.plot(x_coords, y_coords, 'r+')
+plt.rc('font', family = 'serif', serif = 'cmr10')
+plt.rcParams['mathtext.fontset'] = "cm" 
+plt.rcParams['axes.unicode_minus'] = False # ensures that minus signs appear on the axes scales
+
+plt.plot(x_coords, y_coords, 'r.')
+plt.plot(x_coords, y_coords, LineWidth = 0.9, LineStyle = "-", Color = "b")
+plt.xlabel("x Position", fontsize = 12)
+plt.ylabel(" y Position", fontsize = 12)
 plt.savefig("My_Orbit_Plot.pdf")
