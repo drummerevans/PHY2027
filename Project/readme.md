@@ -7,3 +7,18 @@ The planetary orbits had to be rounded to the nearest day in order to loop aroun
 ## project.c
 
 The Sun's mass was auired from: https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html (accessed 30th November 2018).
+To run use:
+```
+gcc project.c -o project.exe
+./project.exe
+```
+
+## plot.py
+
+This program reads in the planetary (x, y) positions generated from the project.c program.
+It then maps these position as a scatter (x, y) graph to simulate the planetary motion around the Sun over time.
+
+To run use:
+```
+python plot.py
+```

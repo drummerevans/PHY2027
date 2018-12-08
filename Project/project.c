@@ -10,6 +10,7 @@
 typedef struct planet{
     char name[20];
     double mass;
+    int period;
     double pos[2];
     double vel[2];
     double accel[2];
@@ -39,14 +40,14 @@ int main() {
     read(struc_ptr);
     
     // the for loop starts at time 0 and iterates until a given period
-    // the time step is then increased by an amount dt and and dumps the values for the positions every 7 days
+    // the time step is then increased by an amount dt and decreases to count on the data dump time by dt after each iteration
     for(double t = 0.0; t < T; t += dt, time_until_dump -= dt){
-        printf("The current time is: %lg    time unti dump: %lg\n", t, time_until_dump);
-        // if(time_until_dump <= 0.0) {
-        //     time_until_dump = dump_time; // outputting result every 7 days
-        //     fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
-        //     printf("Dumping\n");
-        // }
+        printf("The current time is: %lg    time until dump: %lg\n", t, time_until_dump);
+        if(time_until_dump <= 0.0) {
+            time_until_dump = dump_time; // outputting result to a text file once every 7 days
+            fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+            printf("Dumping\n");
+        }
         // else {
         //     printf("Unable to open results file.\n");
         //     return 1;
@@ -55,14 +56,14 @@ int main() {
         predict(struc_ptr, dt, dist);
         correct(struc_ptr, dt);
 
-        if(result_ptr != NULL) {
-            printf("Results file opened.\n");
-            fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
-        }
-        else {
-            printf("Unable to open results file.\n");
-            return 1;
-        }
+        // if(result_ptr != NULL) {
+        //     printf("Results file opened.\n");
+        //     fprintf(result_ptr, "%le %le\n", struc_ptr[2].pos[0], struc_ptr[2].pos[1]);
+        // }
+        // else {
+        //     printf("Unable to open results file.\n");
+        //     return 1;
+        // }
     }
 
     
@@ -109,9 +110,7 @@ double distance(Planet *sptr) {
     return r;
 }
 
-void accelerate(Planet *sptr) {
-    sptr[2].accel[0] = -(G * M * )
-}
+
 
 // this predicts the planet's new position and velocity, for both x and y components
 void predict(Planet *sptr, double dt, double r) {
