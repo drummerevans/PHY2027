@@ -19,7 +19,18 @@ gcc project.c -o project.exe
 This program reads in the planetary (x, y) positions generated from the project.c program.
 It then maps these position as a scatter (x, y) graph to simulate the planetary motion around the Sun over time.
 
-To run use:
+To run in Python 3 use:
 ```
 python plot.py
 ```
+
+## combo_plot.py
+
+This program reads in the planetary (x, y) positions generated from the project.c program.
+
+To run in Python 3 use:
+```
+python combo_plot.py
+```
+This just gives a demnstartion of combining all of the planetary orbits from some test data generated from the project.c program.
+The pdf following pdf is just a demonstration of combining all these planetary oribts 

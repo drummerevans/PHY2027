@@ -5,7 +5,7 @@ It then plots these positions as an (x, y) scatter point graph to map out the pl
 
 import matplotlib.pyplot as plt
 
-fptr = open("results.txt", "r", newline=None)
+fptr = open("results1.txt", "r", newline=None)
 row = fptr.readline()
 
 x_coords = []
