@@ -34,3 +34,4 @@ python combo_plot.py
 ```
 This just gives a demnstartion of combining all of the planetary orbits from some test data generated from the project.c program.
 The pdf following pdf is just a demonstration of combining all these planetary oribts 
+![alt text](https://github.com/drummerevans/PHY2027/blob/master/Project/Combo_Orbit_Plot.pdf "Combo Plot")
