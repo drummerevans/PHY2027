@@ -89,3 +89,45 @@ void correct(Planet *sptr, double dt, int i) {
     sptr[i].vel[0] += (sptr[i].accel[0] + sptr[i].est_accel[0]) * (dt / 2.0);
     sptr[i].vel[1] += (sptr[i].accel[1] + sptr[i].est_accel[1]) * (dt / 2.0);
 }
+
+// this outputs the results calculated from the functions in the "mapper.h" header file to a specified text file
+void output(Planet *sptr, int i) {
+    FILE *result_ptr = NULL;
+    char file[50];
+
+    printf("\nPlease enter a text file (including the .txt extension) to store the output data: ");
+    scanf("%s", file);
+    result_ptr = fopen(file, "w");
+
+    double dt, T, freq, dump_time, time_until_dump;
+
+    printf("\nPlease input a value for the time step and time period in days, separated by a space: ");
+    scanf("%lg %lg", &dt, &T);
+
+    printf("\nNow, please select the frequency of the position outputs, in units of per days: ");
+    scanf("%lg", &freq);
+
+    dt = seconds(dt);
+    T = seconds(T);
+    dump_time = freq * dt;
+    time_until_dump = dump_time;
+
+    if(result_ptr != NULL) {
+        // the for loop starts at time 0 and iterates until a given period
+        // the time step is then increased by an amount dt and decreases to count on the data dump time by dt after each iteration
+        for(double t = 0.0; t < T; t += dt, time_until_dump -= dt){
+            double dist = distance(sptr, i);
+            predict(sptr, dt, dist, i);
+            correct(sptr, dt, i);
+            if(time_until_dump <= 0.0) {
+                time_until_dump = dump_time; // reseting the time until the next result output back to the original elapse time 
+                fprintf(result_ptr, "%le %le\n", sptr[i].pos[0], sptr[i].pos[1]); // outputting position results to a text file once every 7 days
+            }  
+        }
+    fclose(result_ptr);
+    }
+    else {
+        printf("Unable to open results file.\n");
+        exit(1);
+    }     
+}

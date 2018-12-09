@@ -15,6 +15,7 @@ double seconds(double time_value);
 double distance(Planet *sptr, int i);
 void predict(Planet *sptr, double dt, double r, int i);
 void correct(Planet *sptr, double dt, int i);
+void find(Planet *sptr, char planet_name[20]);
 
 void output(Planet *sptr, int i);
 
@@ -23,62 +24,51 @@ int main() {
     struc_ptr = (Planet *)malloc(NMAX * sizeof(Planet)); // allocating 8 spaces for our structure array of planets
 
     char array[20];
+    int option = 1;
 
     read(struc_ptr);
 
     printf("Please enter a planet name within the solar system for mapping the motion around the Sun: ");
     scanf("%s", &array);
 
-    // the loop iterates through all the planets in the structure until a match is found
-    int j;
+    find(struc_ptr, array);
+    
     do {
-        if(strcmp(array, struc_ptr[j].name) == 0) {
-        printf("Planet found.\n");
-        output(struc_ptr, j);
+        printf("\nWould you like to map another planet's orbit? ");
+        printf("\n\t1. Yes");
+        printf("\n\t2. No");
+        printf("\nPlease enter 1 or 2: ");
+        scanf("\n%d", &option);
+
+        switch(option) {
+            case 1:
+                printf("Please enter a planet name within the solar system for mapping the motion around the Sun: ");
+                scanf("%s", &array);
+                find(struc_ptr, array);
+                break;
+            case 2:
+                printf("Thank you and goodbye.\n");
+                break;
+            default:
+                printf("Invalid entry.\n");
+                break;
         }
-        j++;
     }
-    while(j < NMAX);
+    while(option == 1);
+       
+    printf("\nIn order to view the plots, please run \'python plot.py\'.\n");
      
     free(struc_ptr);
 
     return 0;
 }
 
-// this outputs the results calculated from the functions in the "mapper.h" header file to a text file "results.txt"
-void output(Planet *sptr, int i) {
-    FILE *result_ptr = NULL;
-    result_ptr = fopen("results.txt", "w");
-
-    double dt, T, freq, dump_time, time_until_dump;
-
-    printf("Please input a value for the time step and time period in days, separated by a space: ");
-    scanf("%lg %lg", &dt, &T);
-
-    printf("\nNow, please select the frequency of the position outputs, in units of per days: ");
-    scanf("%lg", &freq);
-
-    dt = seconds(dt);
-    T = seconds(T);
-    dump_time = freq * dt;
-    time_until_dump = dump_time;
-
-    if(result_ptr != NULL) {
-        // the for loop starts at time 0 and iterates until a given period
-        // the time step is then increased by an amount dt and decreases to count on the data dump time by dt after each iteration
-        for(double t = 0.0; t < T; t += dt, time_until_dump -= dt){
-            double dist = distance(sptr, i);
-            predict(sptr, dt, dist, i);
-            correct(sptr, dt, i);
-            if(time_until_dump <= 0.0) {
-                time_until_dump = dump_time; // reseting the time until the next result output back to the original elapse time 
-                fprintf(result_ptr, "%le %le\n", sptr[i].pos[0], sptr[i].pos[1]); // outputting position results to a text file once every 7 days
-            }  
+void find(Planet *sptr, char planet_name[20]) {
+    // the loop iterates through all the planets in the structure until a match is found
+    for(int j = 0; j < NMAX; j++) {
+        if(strcmp(planet_name, sptr[j].name) == 0) {
+        printf("Planet found.\n");
+        output(sptr, j);
         }
-    fclose(result_ptr);
     }
-    else {
-        printf("Unable to open results file.\n");
-        exit(1);
-    }     
 }
