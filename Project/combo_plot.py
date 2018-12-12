@@ -1,5 +1,5 @@
 '''
-This program reads in the planetary (x, y) positions generated from the c file project.c
+This is a sample program and reads in the planetary (x, y) positions generated from the c file project.c
 It then plots all the planets as an (x, y) scatter point graph to map out the planetary motion around the Sun
 '''
 

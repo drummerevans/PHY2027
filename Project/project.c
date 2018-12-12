@@ -3,6 +3,13 @@ Project Option 2 for PHY2027
 Date 14/12/2018
 */
 
+/* 
+This program integrates planetary motion for planets in the solar system.
+This is achieved by using a second-order Runge-Kutta method.
+The user can specify which planet to map including, the time step orbital period and frequency of outputs (in units of per days).
+In addition to this the user can run the program as many times as they wish in order to map multiple planets.
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -63,6 +70,7 @@ int main() {
     return 0;
 }
 
+// the 'find' function finds the planet specified by the user in the structure array of planets
 void find(Planet *sptr, char planet_name[20]) {
     // the loop iterates through all the planets in the structure until a match is found
     for(int j = 0; j < NMAX; j++) {

@@ -29,10 +29,10 @@ void read(Planet *sptr) {
         // the loop reads one line at a time from the text file "scores.txt"
         for(int i = 0; !feof(fptr); i++) {
             // the loop reads one line at a time from the text file "data.txt"
-            fscanf(fptr, "%s %le", sptr[i].name, &sptr[i].mass);
+            fscanf(fptr, "%s %lg", sptr[i].name, &sptr[i].mass);
             // the nested loop reads elements in from the text file into the 'pos' and 'vel' arrays in the structure
             for(int j = 0; j < 2; j++) {
-                fscanf(fptr, "%le %le", &sptr[i].pos[j], &sptr[i].vel[j]);
+                fscanf(fptr, "%lg %lg", &sptr[i].pos[j], &sptr[i].vel[j]);
             }
         }
         // closing the text file after the data has been scanned into the relevant structures
@@ -121,7 +121,7 @@ void output(Planet *sptr, int i) {
             correct(sptr, dt, i);
             if(time_until_dump <= 0.0) {
                 time_until_dump = dump_time; // reseting the time until the next result output back to the original elapse time 
-                fprintf(result_ptr, "%le %le\n", sptr[i].pos[0], sptr[i].pos[1]); // outputting position results to a text file once every 7 days
+                fprintf(result_ptr, "%lg %lg\n", sptr[i].pos[0], sptr[i].pos[1]); // outputting position results to a text file once every 7 days
             }  
         }
     fclose(result_ptr);

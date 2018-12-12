@@ -18,6 +18,7 @@ gcc project.c -o project.exe
 
 This program reads in the planetary (x, y) positions generated from the project.c program.
 It then maps these position as a scatter (x, y) graph to simulate the planetary motion around the Sun over time.
+This program also gives the user the opportunity to specify the amount of planets they wish to map.
 
 To run in Python 3 use:
 ```
