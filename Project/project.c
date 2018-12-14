@@ -19,7 +19,7 @@ In addition to this the user can run the program as many times as they wish in o
 // declaring all the function prototypes used in this program contained in the "mapper.h" header file to complete the required calculations
 void read(Planet *sptr);
 double seconds(double time_value);
-double distance(Planet *sptr, int i);
+double distance(Planet *sptr, int i); // the int i argument in the functions specifies the planet in the structure array
 void predict(Planet *sptr, double dt, double r, int i);
 void correct(Planet *sptr, double dt, int i);
 void find(Planet *sptr, char planet_name[20]);
@@ -31,13 +31,12 @@ int main() {
     struc_ptr = (Planet *)malloc(NMAX * sizeof(Planet)); // allocating 8 spaces for our structure array of planets
 
     char array[20];
-    int option = 1;
+    int option = 0;
 
     read(struc_ptr);
 
     printf("Please enter a planet name within the solar system for mapping the motion around the Sun: ");
     scanf("%s", &array);
-
     find(struc_ptr, array);
     
     do {
@@ -63,7 +62,7 @@ int main() {
     }
     while(option == 1);
        
-    printf("\nIn order to view the plots, please run \'python plot.py\'.\n");
+    printf("\nN.B. in order to view the plot(s), please run \'python plot.py\'.\n");
      
     free(struc_ptr);
 
@@ -75,8 +74,8 @@ void find(Planet *sptr, char planet_name[20]) {
     // the loop iterates through all the planets in the structure until a match is found
     for(int j = 0; j < NMAX; j++) {
         if(strcmp(planet_name, sptr[j].name) == 0) {
-        printf("Planet found.\n");
-        output(sptr, j);
+            printf("Planet found.\n");
+            output(sptr, j);
         }
     }
 }

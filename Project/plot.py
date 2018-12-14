@@ -1,5 +1,6 @@
 '''
 This program reads in the planetary (x, y) positions from text file(s) specified by the user generated from the c file project.c
+Hence, this MUST be used in conjunction with "project.c"
 The user then names the planet and specifies it's colour from the given list.
 It then plots these positions as an (x, y) scatter point graph to map out the planetary motion around the Sun.
 Furthermore, the user can specify the amount of times to run the program in order to obtain multiple mappings of planets on the same plot.
@@ -7,6 +8,7 @@ Furthermore, the user can specify the amount of times to run the program in orde
 
 import matplotlib.pyplot as plt
 
+# plots the orbit of a specified planet
 def plotter():
     # this is needed in order to read from the correct file
     planet = input("What is the name of you planet? ")
@@ -45,6 +47,7 @@ def plotter():
     plt.savefig("My_Orbit_Plot.pdf")
 
 decision = 1
+# the while loop gives the user the option to map another planet (on the same plot)
 while decision == 1:
     plotter()
     print("Would you like to map another planet's orbit on the same plot?")

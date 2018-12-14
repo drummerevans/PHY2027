@@ -1,6 +1,7 @@
 /* 
-This header file performs all the computations required for the second order Runge-Kutta method
-It performs this by obtaining the information from a textfile stored in an array of strucutres
+This header file performs all the computations required for the second order Runge-Kutta method.
+It performs this by obtaining the information from a textfile "data.txt" and stores this in an array of structures.
+These functions are then all called from the "project.c" program file.
 */
 
 #define NMAX 8 
@@ -23,10 +24,10 @@ typedef struct planet{
 // the read function reads data from the text file
 void read(Planet *sptr) {
     FILE *fptr = NULL;
-    fptr = fopen("data.txt", "r"); // opening the 'scores.txt' text file for reading
+    fptr = fopen("data.txt", "r"); // opening the "data.txt" text file for reading
 
     if(fptr != NULL) {
-        // the loop reads one line at a time from the text file "scores.txt"
+        // the loop reads one line at a time from the text file "data.txt"
         for(int i = 0; !feof(fptr); i++) {
             // the loop reads one line at a time from the text file "data.txt"
             fscanf(fptr, "%s %lg", sptr[i].name, &sptr[i].mass);

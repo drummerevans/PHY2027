@@ -27,7 +27,7 @@ python plot.py
 
 ## combo_plot.py
 
-This program reads in the planetary (x, y) positions generated from the project.c program.
+This is a SAMPLE program and reads in the planetary (x, y) positions generated from the project.c program.
 
 To run in Python 3 use:
 ```
